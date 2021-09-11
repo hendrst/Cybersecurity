@@ -25,47 +25,49 @@ Load balancing ensures that the application will be highly available, in additio
 
 To facilitate maintenance and administration tasks a jump box has been included the design.   The jump box allows SSH access from specific outside IP addresses only.  Once access has been gained to the jump box, the web severs may be accessed via an SSH connection from the Ansible Docker container.
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
-- _TODO: What does Filebeat watch for?_
-- _TODO: What does Metricbeat record?_
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the web traffic using Metricbeat and system logs using Filebeat.
 
 The configuration details of each machine may be found below.
 _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
-| Name     | Function | IP Address | Operating System |
-|----------|----------|------------|------------------|
-| Jump Box | Gateway  | 10.0.0.4   | Linux            |
-| Web-1    | Server   | 10.0.0.5   | Linux            |
-| Web-2    | Server   | 10.0.0.6   | Linux            |
-| Web-3    | Server   | 10.0.0.7   | Linux            |
+| Name       | Function | IP Address | Operating System |
+|------------|----------|------------|------------------|
+| Jump Box   | Gateway  | 10.0.0.4   | Linux            |
+| Web-1      | Server   | 10.0.0.5   | Linux            |
+| Web-2      | Server   | 10.0.0.6   | Linux            |
+| Web-3      | Server   | 10.0.0.7   | Linux            |
+| ELK Server | Server   | 10.1.0.4   | Linux            |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet.
 
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the jump box machine can accept connections from the Internet. Access to this machine is only allowed from the following IP address: 72.208.179.62
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+Machines within the network can only be accessed via SSH.
+
+The ELK stack server can only be accessed from the internet by IP address 72.208.179.62 on port 5601.
 
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses |
-|----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Name        | Publicly Accessable | Allowed IP Adresses |
+|-------------|---------------------|---------------------|
+| Jump Box    | Yes                 | 72.208.179.62       |
+| Web-1       | No                  | 10.0.0.4            |
+| Web-2       | No                  | 10.0.0.4            |  
+| Web-3       | No                  | 10.0.0.4            |  
+| ELK Server  | Yes                 | 72.208.179.62       |
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because it allows for rapid deployment.
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- ... Memory configuration
+- ... Download and Install of Docker.io
+- ... Download and Install Python3 and Pip
+- ... Download and Launch the ELK container
+- ... Enable the ELK service
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
