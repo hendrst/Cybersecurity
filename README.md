@@ -106,4 +106,4 @@ SSH into the control node and follow the steps below:
 [elk]
 10.1.0.4 ansible_python_interpreter=/usr/bin/python3
 ```
-- Run the playbook, and navigate to 40.76.229.20 to check that the installation worked as expected.
+- Run the playbooks and navigate to 40.76.229.20 to check that the installation worked as expected.
