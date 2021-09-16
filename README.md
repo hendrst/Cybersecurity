@@ -28,7 +28,6 @@ To facilitate maintenance and administration tasks a jump box has been included 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the web traffic using Metricbeat and system logs using Filebeat.
 
 The configuration details of each machine may be found below.
-#_Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/# # remove values from the table_.
 
 | Name       | Function | IP Address              | Operating System |
 |------------|----------|-------------------------|------------------|
@@ -75,25 +74,36 @@ The following screenshot displays the result of running `docker ps` after succes
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
+
+| Name  | IP Address |
+|-------|------------|
+| Web-1 | 10.0.0.5   |
+| Web-2 | 10.0.0.6   |
+| Web-3 | 10.0.0.7   |
 
 We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
+- Filebeats
+- Metricbeats
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Filebeats - Gathers Linux system log file data. Useful for detecting suspicious or unauthorized logins to the system and if any suspicious sudo activity has taken place.
+
+- Metricbeats - Gathers data that pertains to traffic patterns into the web servers.   This is useful to determine if suspicious activity is coming from a specific region and for determining if suspicious activity is being performed at a certain time of day.
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned:
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the install_elk.yml, install_filebeat.yml, and install_metricbeat.yml files to the /etc/ansible directory of the Ansible container located on the the Jump Box.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
+- Update the /etc/ansible/hosts file to include specifications for both the webservers and the ELK server which contain the following:
+```
+[webservers]
+10.0.0.5 ansible_python_interpreter=/usr/bin/python3
+10.0.0.6 ansible_python_interpreter=/usr/bin/python3
+10.0.0.7 ansible_python_interpreter=/usr/bin/python3
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+[elk]
+10.1.0.4 ansible_python_interpreter=/usr/bin/python3
+```
+- Run the playbook, and navigate to 40.76.229.20 to check that the installation worked as expected.
